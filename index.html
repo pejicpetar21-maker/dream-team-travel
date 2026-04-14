@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Dream Team Travel</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root {
+  --navy:   #0f2847;
+  --blue:   #1d6fd8;
+  --sky:    #3b9eff;
+  --light:  #e8f1fc;
+  --pale:   #f4f8ff;
+  --white:  #ffffff;
+  --gray:   #64748b;
+  --gray2:  #94a3b8;
+  --border: #dde8f5;
+  --shadow: 0 4px 24px rgba(15,40,71,0.10);
+  --shadow2:0 8px 40px rgba(15,40,71,0.18);
+  --font-h: 'Playfair Display', serif;
+  --font-b: 'DM Sans', sans-serif;
+  --radius: 16px;
+  --radius2: 24px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+body {
+  font-family: var(--font-b);
+  background: var(--pale);
+  color: var(--navy);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── HEADER ── */
+header {
+  background: var(--navy);
+  padding: 0 20px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.2);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--sky), var(--blue));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-name {
+  font-family: var(--font-h);
+  font-size: 15px;
+  color: var(--white);
+  line-height: 1.1;
+}
+
+.logo-sub {
+  font-size: 9px;
+  color: var(--sky);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.header-nav {
+  display: flex;
+  gap: 4px;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.6);
+  font-family: var(--font-b);
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.nav-btn.active, .nav-btn:hover {
+  background: rgba(255,255,255,0.12);
+  color: white;
+}
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(160deg, var(--navy) 0%, #1a4a8a 60%, var(--blue) 100%);
+  padding: 32px 20px 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 240px; height: 240px;
+  border-radius: 50%;
+  background: rgba(59,158,255,0.12);
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: -40px;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.85);
+  letter-spacing: 0.5px;
+  margin-bottom: 14px;
+}
+
+.hero h1 {
+  font-family: var(--font-h);
+  font-size: 28px;
+  color: white;
+  line-height: 1.25;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero h1 span { color: var(--sky); }
+
+.hero p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  max-width: 320px;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 20px;
+}
+
+.hero-stat {
+  text-align: center;
+}
+
+.hero-stat-val {
+  font-family: var(--font-h);
+  font-size: 22px;
+  color: white;
+  font-weight: 700;
+}
+
+.hero-stat-lbl {
+  font-size: 10px;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.5px;
+}
+
+/* ── MAIN ── */
+main { padding: 0 16px 100px; margin-top: -20px; position: relative; z-index: 1; }
+
+/* ── SECTION ── */
+.section { margin-bottom: 28px; }
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.section-title {
+  font-family: var(--font-h);
+  font-size: 19px;
+  color: var(--navy);
+}
+
+.section-link {
+  font-size: 12px;
+  color: var(--blue);
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* ── TRIP CARD ── */
+.trips-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.trip-card {
+  background: var(--white);
+  border-radius: var(--radius2);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  animation: slideUp 0.4s ease both;
+}
+
+.trip-card:active { transform: scale(0.98); }
+
+@keyframes slideUp {
+  from { opacity:0; transform:translateY(16px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+.trip-card-header {
+  background: linear-gradient(135deg, var(--navy), #1a4a8a);
+  padding: 16px 18px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.trip-dest {
+  font-family: var(--font-h);
+  font-size: 20px;
+  color: white;
+}
+
+.trip-from {
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+  margin-top: 2px;
+}
+
+.trip-price-badge {
+  background: linear-gradient(135deg, var(--sky), var(--blue));
+  border-radius: 12px;
+  padding: 6px 14px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.trip-price-val {
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  display: block;
+}
+
+.trip-price-lbl {
+  font-size: 9px;
+  color: rgba(255,255,255,0.8);
+  letter-spacing: 0.5px;
+}
+
+.trip-card-body {
+  padding: 14px 18px;
+}
+
+.trip-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.trip-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.trip-meta-icon { font-size: 14px; }
+
+.trip-meta-val {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.trip-meta-lbl {
+  font-size: 10px;
+  color: var(--gray2);
+  letter-spacing: 0.3px;
+}
+
+.trip-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.mesta-bar {
+  flex: 1;
+  margin-right: 12px;
+}
+
+.mesta-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--gray2);
+  margin-bottom: 4px;
+}
+
+.mesta-track {
+  height: 4px;
+  background: var(--light);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.mesta-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--sky), var(--blue));
+  transition: width 0.6s ease;
+}
+
+.mesta-fill.low { background: linear-gradient(90deg, #f59e0b, #ef4444); }
+
+.btn-reserve {
+  background: linear-gradient(135deg, var(--sky), var(--blue));
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 18px;
+  font-family: var(--font-b);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(29,111,216,0.35);
+}
+
+.btn-reserve:active { transform: scale(0.95); }
+
+/* ── REVIEWS ── */
+.reviews-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: none;
+}
+
+.reviews-scroll::-webkit-scrollbar { display: none; }
+
+.review-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 16px;
+  min-width: 220px;
+  box-shadow: var(--shadow);
+  flex-shrink: 0;
+}
+
+.review-stars {
+  color: #f59e0b;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.review-text {
+  font-size: 12px;
+  color: var(--gray);
+  line-height: 1.6;
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+.review-author {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.review-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--sky), var(--blue));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: white;
+}
+
+.review-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.review-dest {
+  font-size: 10px;
+  color: var(--gray2);
+}
+
+/* ── MODAL ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15,40,71,0.7);
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal {
+  background: white;
+  border-radius: 28px 28px 0 0;
+  padding: 24px 20px 40px;
+  width: 100%;
+  max-height: 92vh;
+  overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.modal-overlay.open .modal {
+  transform: translateY(0);
+}
+
+.modal-handle {
+  width: 40px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  margin: 0 auto 20px;
+}
+
+.modal-title {
+  font-family: var(--font-h);
+  font-size: 22px;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+
+.modal-sub {
+  font-size: 12px;
+  color: var(--gray);
+  margin-bottom: 20px;
+}
+
+.booking-summary {
+  background: var(--pale);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin-bottom: 20px;
+}
+
+.booking-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  font-size: 13px;
+}
+
+.booking-summary-row:not(:last-child) {
+  border-bottom: 1px solid var(--border);
+}
+
+.booking-summary-label { color: var(--gray); }
+.booking-summary-val { font-weight: 600; color: var(--navy); }
+.booking-summary-total { font-weight: 700; color: var(--blue); font-size: 16px; }
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.form-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--navy);
+  letter-spacing: 0.3px;
+}
+
+.form-input {
+  background: var(--pale);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 13px 15px;
+  font-family: var(--font-b);
+  font-size: 14px;
+  color: var(--navy);
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+  -webkit-appearance: none;
+}
+
+.form-input:focus { border-color: var(--blue); background: white; }
+
+.btn-submit {
+  background: linear-gradient(135deg, var(--sky), var(--blue));
+  color: white;
+  border: none;
+  border-radius: 14px;
+  padding: 16px;
+  font-family: var(--font-b);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 8px;
+  box-shadow: 0 6px 20px rgba(29,111,216,0.4);
+  transition: all 0.2s;
+}
+
+.btn-submit:active { transform: scale(0.98); }
+.btn-submit:disabled { opacity: 0.6; pointer-events: none; }
+
+.btn-cancel {
+  background: none;
+  border: 1.5px solid var(--border);
+  color: var(--gray);
+  border-radius: 14px;
+  padding: 14px;
+  font-family: var(--font-b);
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+  transition: all 0.2s;
+}
+
+/* ── SUCCESS MODAL ── */
+.success-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(15,40,71,0.8);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.success-modal.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.success-box {
+  background: white;
+  border-radius: 28px;
+  padding: 32px 24px;
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+  transform: scale(0.8);
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.success-modal.open .success-box { transform: scale(1); }
+
+.success-icon {
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin: 0 auto 16px;
+}
+
+.success-title {
+  font-family: var(--font-h);
+  font-size: 22px;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+
+.success-ref {
+  display: inline-block;
+  background: var(--light);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 20px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--blue);
+  letter-spacing: 2px;
+  margin: 10px 0;
+}
+
+.success-info {
+  font-size: 12px;
+  color: var(--gray);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.btn-pdf {
+  background: var(--navy);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  padding: 14px;
+  font-family: var(--font-b);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 10px;
+  transition: all 0.2s;
+}
+
+.btn-ok {
+  background: linear-gradient(135deg, var(--sky), var(--blue));
+  color: white;
+  border: none;
+  border-radius: 14px;
+  padding: 14px;
+  font-family: var(--font-b);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* ── LOADING ── */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  gap: 16px;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--border);
+  border-top-color: var(--blue);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loading-text {
+  font-size: 13px;
+  color: var(--gray);
+}
+
+/* ── EMPTY ── */
+.empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--gray2);
+}
+
+.empty-icon { font-size: 40px; margin-bottom: 10px; }
+.empty-text { font-size: 13px; }
+
+/* ── BOTTOM NAV ── */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-top: 1px solid var(--border);
+  display: flex;
+  padding: 8px 0 12px;
+  z-index: 100;
+  box-shadow: 0 -4px 20px rgba(15,40,71,0.08);
+}
+
+.bottom-nav-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  transition: all 0.2s;
+}
+
+.bottom-nav-icon {
+  font-size: 20px;
+  transition: transform 0.2s;
+}
+
+.bottom-nav-label {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--gray2);
+  letter-spacing: 0.3px;
+}
+
+.bottom-nav-btn.active .bottom-nav-label { color: var(--blue); }
+.bottom-nav-btn.active .bottom-nav-icon { transform: scale(1.15); }
+
+/* ── PAGES ── */
+.page { display: none; }
+.page.active { display: block; animation: fadeIn 0.25s ease; }
+
+@keyframes fadeIn {
+  from { opacity:0; transform:translateY(6px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ── REZERVACIJE PAGE ── */
+.rez-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow);
+}
+
+.rez-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.rez-ref {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--blue);
+  letter-spacing: 1px;
+}
+
+.rez-status {
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: #dcfce7;
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.rez-dest {
+  font-family: var(--font-h);
+  font-size: 18px;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.rez-meta {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.rez-meta-item {
+  font-size: 12px;
+  color: var(--gray);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ── INFO PAGE ── */
+.info-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow);
+}
+
+.info-card-title {
+  font-family: var(--font-h);
+  font-size: 16px;
+  color: var(--navy);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-card p {
+  font-size: 13px;
+  color: var(--gray);
+  line-height: 1.7;
+}
+
+.contact-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--pale);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  color: var(--navy);
+}
+
+.contact-btn:active { background: var(--light); }
+
+.contact-btn-icon {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--sky), var(--blue));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.contact-btn-text { font-size: 13px; font-weight: 600; }
+.contact-btn-sub { font-size: 11px; color: var(--gray2); }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  background: var(--navy);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  z-index: 400;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  pointer-events: none;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── PUTNICI COUNTER ── */
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--pale);
+}
+
+.counter-btn {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: none;
+  font-size: 20px;
+  color: var(--blue);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+  font-weight: 300;
+}
+
+.counter-btn:active { background: var(--light); }
+
+.counter-val {
+  flex: 1;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+/* ── PRICE PREVIEW ── */
+.price-preview {
+  background: linear-gradient(135deg, var(--navy), #1a4a8a);
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.price-preview-lbl {
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+}
+
+.price-preview-val {
+  font-family: var(--font-h);
+  font-size: 22px;
+  color: white;
+  font-weight: 700;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">✈️</div>
+    <div class="logo-text">
+      <div class="logo-name">Dream Team Travel</div>
+      <div class="logo-sub">Srbija → Hrvatska</div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero" id="hero-section">
+  <div class="hero-tag">✈️ Kombi prevoz · Direktna linija</div>
+  <h1>Vaše putovanje<br>počinje <span>ovde</span></h1>
+  <p>Udoban i pouzdan prevoz iz Srbije za Hrvatsku. Rezervišite za par sekundi.</p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-val" id="stat-putovanja">—</div>
+      <div class="hero-stat-lbl">Termina</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-val" id="stat-recenzije">—</div>
+      <div class="hero-stat-lbl">Recenzija</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-val">4.9⭐</div>
+      <div class="hero-stat-lbl">Ocena</div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+  <!-- PUTOVANJA -->
+  <div class="page active" id="page-putovanja">
+    <div class="section">
+      <div class="section-header" style="margin-top:16px">
+        <div class="section-title">Dostupni termini</div>
+      </div>
+      <div class="trips-list" id="trips-list">
+        <div class="loading">
+          <div class="spinner"></div>
+          <div class="loading-text">Učitavam termine...</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Recenzije putnika</div>
+      </div>
+      <div class="reviews-scroll" id="reviews-scroll">
+        <div class="loading" style="min-width:200px">
+          <div class="spinner"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REZERVACIJE -->
+  <div class="page" id="page-rezervacije">
+    <div class="section-header" style="margin-top:16px;margin-bottom:14px">
+      <div class="section-title">Moje rezervacije</div>
+    </div>
+    <div id="rez-list">
+      <div class="empty">
+        <div class="empty-icon">🎫</div>
+        <div class="empty-text">Učitavam rezervacije...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INFO -->
+  <div class="page" id="page-info">
+    <div class="section-header" style="margin-top:16px;margin-bottom:14px">
+      <div class="section-title">O agenciji</div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-title">✈️ Dream Team Travel</div>
+      <p>Specijalizovani smo za kombi prevoz iz Srbije u Hrvatsku. Svaki putnik putuje udobno, bezbedno i na vreme. Direktne linije bez presedanja.</p>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-title">🚌 Naše usluge</div>
+      <p>✓ Klima uređaj u vozilu<br>✓ USB punjači za sve putnike<br>✓ Direktna linija do odredišta<br>✓ Pouzdani i iskusni vozači<br>✓ Fleksibilne tačke ukrcavanja</p>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-title">📞 Kontakt</div>
+      <a class="contact-btn" href="tel:+381641234567">
+        <div class="contact-btn-icon">📞</div>
+        <div>
+          <div class="contact-btn-text">+381 64 123 4567</div>
+          <div class="contact-btn-sub">Dostupni 24/7</div>
+        </div>
+      </a>
+      <a class="contact-btn" href="mailto:info@dreamteamtravel.rs">
+        <div class="contact-btn-icon">📧</div>
+        <div>
+          <div class="contact-btn-text">info@dreamteamtravel.rs</div>
+          <div class="contact-btn-sub">Odgovaramo u roku od 1h</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-title">💳 Načini plaćanja</div>
+      <p>✓ Gotovina pri ulasku u vozilo<br>✓ Kartica (Visa, Mastercard)<br>✓ Prenos na račun unapred<br>✓ PayPal (za strane putnike)</p>
+    </div>
+  </div>
+
+</main>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="bottom-nav-btn active" id="nav-putovanja" onclick="showPage('putovanja')">
+    <div class="bottom-nav-icon">🗺️</div>
+    <div class="bottom-nav-label">Termini</div>
+  </button>
+  <button class="bottom-nav-btn" id="nav-rezervacije" onclick="showPage('rezervacije')">
+    <div class="bottom-nav-icon">🎫</div>
+    <div class="bottom-nav-label">Rezervacije</div>
+  </button>
+  <button class="bottom-nav-btn" id="nav-info" onclick="showPage('info')">
+    <div class="bottom-nav-icon">ℹ️</div>
+    <div class="bottom-nav-label">O nama</div>
+  </button>
+</div>
+
+<!-- BOOKING MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="modal-title">Rezervacija</div>
+    <div class="modal-sub" id="modal-sub"></div>
+
+    <div class="booking-summary" id="booking-summary"></div>
+
+    <div class="form-group">
+      <div class="form-label">Ime i prezime *</div>
+      <input class="form-input" id="f-ime" type="text" placeholder="npr. Marko Marković" autocomplete="name" />
+    </div>
+
+    <div class="form-group">
+      <div class="form-label">Broj telefona *</div>
+      <input class="form-input" id="f-tel" type="tel" placeholder="+381 6x xxx xxxx" autocomplete="tel" />
+    </div>
+
+    <div class="form-group">
+      <div class="form-label">Broj putnika</div>
+      <div class="counter">
+        <button class="counter-btn" onclick="changePutnici(-1)">−</button>
+        <div class="counter-val" id="counter-val">1</div>
+        <button class="counter-btn" onclick="changePutnici(1)">+</button>
+      </div>
+    </div>
+
+    <div class="price-preview">
+      <div>
+        <div class="price-preview-lbl">Ukupno za plaćanje</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.5)">Placanje pri ulasku</div>
+      </div>
+      <div class="price-preview-val" id="price-total">—</div>
+    </div>
+
+    <button class="btn-submit" id="btn-submit" onclick="submitBooking()">
+      ✈️ Potvrdi rezervaciju
+    </button>
+    <button class="btn-cancel" onclick="closeModal()">Otkaži</button>
+  </div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="success-modal" id="success-modal">
+  <div class="success-box">
+    <div class="success-icon">✓</div>
+    <div class="success-title">Rezervacija potvrđena!</div>
+    <div class="section-link" style="font-size:12px;color:var(--gray);display:block;margin-bottom:4px">Vaš referentni broj</div>
+    <div class="success-ref" id="success-ref">DTT-0001</div>
+    <div class="success-info" id="success-info"></div>
+    <button class="btn-pdf" onclick="downloadPDF()">📄 Preuzmi potvrdu (PDF)</button>
+    <button class="btn-ok" onclick="closeSuccess()">Odlično, hvala!</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<iframe name="hidden_iframe" style="display:none"></iframe>
+
+<script>
+const API = "https://script.google.com/macros/s/AKfycbwJvXDhMqavs6w6_1OcmlMkkfz9YGeHt2JNkVJXnMU7Cw5WnijFlLN4_fbDpWJ_6DeSUA/exec";
+
+let STATE = { putovanja: [], rezervacije: [], recenzije: [] };
+let selectedPutovanje = null;
+let brPutnika = 1;
+let lastBooking = null;
+
+// ── LOAD ──────────────────────────────────────────────────
+async function loadData() {
+  try {
+    const res = await fetch(API + '?action=getData');
+    const data = await res.json();
+    if (data.status === 'ok') {
+      STATE = data;
+      renderAll();
+    }
+  } catch(e) {
+    showToast('Greška pri učitavanju podataka');
+  }
+}
+
+function renderAll() {
+  renderTrips();
+  renderReviews();
+  renderRezervacije();
+  updateStats();
+}
+
+function updateStats() {
+  document.getElementById('stat-putovanja').textContent = STATE.putovanja.length;
+  document.getElementById('stat-recenzije').textContent = STATE.recenzije.length + '+';
+}
+
+// ── TRIPS ─────────────────────────────────────────────────
+function renderTrips() {
+  const container = document.getElementById('trips-list');
+  const available = STATE.putovanja.filter(p => Number(p.mesta) > 0);
+
+  if (available.length === 0) {
+    container.innerHTML = `<div class="empty"><div class="empty-icon">😔</div><div class="empty-text">Trenutno nema dostupnih termina.<br>Pokušajte ponovo uskoro.</div></div>`;
+    return;
+  }
+
+  container.innerHTML = available.map((p, i) => {
+    const mesta = Number(p.mesta);
+    const cena = Number(p.cena);
+    const maxMesta = 16;
+    const pct = Math.round((mesta / maxMesta) * 100);
+    const isLow = mesta <= 3;
+    const delay = i * 0.08;
+
+    return `
+    <div class="trip-card" style="animation-delay:${delay}s" onclick="openBooking(${p.id})">
+      <div class="trip-card-header">
+        <div>
+          <div class="trip-dest">📍 ${p.destinacija}</div>
+          <div class="trip-from">iz ${p.polazak}</div>
+        </div>
+        <div class="trip-price-badge">
+          <span class="trip-price-val">${cena.toLocaleString()}</span>
+          <span class="trip-price-lbl">RSD/osobi</span>
+        </div>
+      </div>
+      <div class="trip-card-body">
+        <div class="trip-meta">
+          <div class="trip-meta-item">
+            <div class="trip-meta-icon">📅</div>
+            <div class="trip-meta-val">${formatDate(p.datum)}</div>
+            <div class="trip-meta-lbl">Datum</div>
+          </div>
+          <div class="trip-meta-item">
+            <div class="trip-meta-icon">🕐</div>
+            <div class="trip-meta-val">${p.vreme}</div>
+            <div class="trip-meta-lbl">Polazak</div>
+          </div>
+          <div class="trip-meta-item">
+            <div class="trip-meta-icon">⏱️</div>
+            <div class="trip-meta-val">${p.trajanje}</div>
+            <div class="trip-meta-lbl">Trajanje</div>
+          </div>
+        </div>
+        <div class="trip-card-footer">
+          <div class="mesta-bar">
+            <div class="mesta-label">
+              <span>${isLow ? '🔴 Malo mesta!' : 'Slobodna mesta'}</span>
+              <span>${mesta}/${maxMesta}</span>
+            </div>
+            <div class="mesta-track">
+              <div class="mesta-fill ${isLow ? 'low' : ''}" style="width:${pct}%"></div>
+            </div>
+          </div>
+          <button class="btn-reserve" onclick="event.stopPropagation();openBooking(${p.id})">
+            Rezerviši
+          </button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── REVIEWS ───────────────────────────────────────────────
+function renderReviews() {
+  const container = document.getElementById('reviews-scroll');
+  if (STATE.recenzije.length === 0) {
+    container.innerHTML = '<div class="empty-text" style="padding:20px;color:var(--gray2)">Nema recenzija</div>';
+    return;
+  }
+
+  container.innerHTML = STATE.recenzije.map(r => {
+    const stars = '⭐'.repeat(Number(r.ocena));
+    const initials = r.ime.split(' ').map(n => n[0]).join('').toUpperCase();
+    return `
+    <div class="review-card">
+      <div class="review-stars">${stars}</div>
+      <div class="review-text">"${r.komentar}"</div>
+      <div class="review-author">
+        <div class="review-avatar">${initials}</div>
+        <div>
+          <div class="review-name">${r.ime}</div>
+          <div class="review-dest">${r.destinacija}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── REZERVACIJE ───────────────────────────────────────────
+function renderRezervacije() {
+  const container = document.getElementById('rez-list');
+  if (STATE.rezervacije.length === 0) {
+    container.innerHTML = `<div class="empty"><div class="empty-icon">🎫</div><div class="empty-text">Nemate rezervacija.<br>Rezervišite putovanje na tabu Termini.</div></div>`;
+    return;
+  }
+
+  container.innerHTML = [...STATE.rezervacije].reverse().map(r => `
+    <div class="rez-card">
+      <div class="rez-card-header">
+        <div class="rez-ref">${r.br}</div>
+        <div class="rez-status">✓ ${r.status}</div>
+      </div>
+      <div class="rez-dest">📍 ${r.destinacija}</div>
+      <div class="rez-meta">
+        <div class="rez-meta-item">📅 ${r.datumPolaska}</div>
+        <div class="rez-meta-item">👤 ${r.ime}</div>
+        <div class="rez-meta-item">👥 ${r.putnici} putnik/a</div>
+        <div class="rez-meta-item">💰 ${Number(r.ukupno).toLocaleString()} RSD</div>
+      </div>
+    </div>`).join('');
+}
+
+// ── BOOKING MODAL ─────────────────────────────────────────
+function openBooking(id) {
+  selectedPutovanje = STATE.putovanja.find(p => p.id == id);
+  if (!selectedPutovanje) return;
+
+  brPutnika = 1;
+  document.getElementById('f-ime').value = '';
+  document.getElementById('f-tel').value = '';
+  document.getElementById('counter-val').textContent = '1';
+
+  document.getElementById('modal-title').textContent = '✈️ ' + selectedPutovanje.destinacija;
+  document.getElementById('modal-sub').textContent = 'iz ' + selectedPutovanje.polazak + ' · ' + formatDate(selectedPutovanje.datum) + ' u ' + selectedPutovanje.vreme;
+
+  document.getElementById('booking-summary').innerHTML = `
+    <div class="booking-summary-row">
+      <span class="booking-summary-label">Destinacija</span>
+      <span class="booking-summary-val">${selectedPutovanje.destinacija}</span>
+    </div>
+    <div class="booking-summary-row">
+      <span class="booking-summary-label">Datum polaska</span>
+      <span class="booking-summary-val">${formatDate(selectedPutovanje.datum)}</span>
+    </div>
+    <div class="booking-summary-row">
+      <span class="booking-summary-label">Vreme polaska</span>
+      <span class="booking-summary-val">${selectedPutovanje.vreme}</span>
+    </div>
+    <div class="booking-summary-row">
+      <span class="booking-summary-label">Cena po osobi</span>
+      <span class="booking-summary-val">${Number(selectedPutovanje.cena).toLocaleString()} RSD</span>
+    </div>
+    <div class="booking-summary-row">
+      <span class="booking-summary-label">Slobodna mesta</span>
+      <span class="booking-summary-val">${selectedPutovanje.mesta}</span>
+    </div>`;
+
+  updatePricePreview();
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeModal(e) {
+  if (e && e.target !== document.getElementById('modal-overlay')) return;
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+
+function changePutnici(delta) {
+  const max = Math.min(Number(selectedPutovanje?.mesta || 8), 8);
+  brPutnika = Math.max(1, Math.min(max, brPutnika + delta));
+  document.getElementById('counter-val').textContent = brPutnika;
+  updatePricePreview();
+}
+
+function updatePricePreview() {
+  if (!selectedPutovanje) return;
+  const total = Number(selectedPutovanje.cena) * brPutnika;
+  document.getElementById('price-total').textContent = total.toLocaleString() + ' RSD';
+}
+
+// ── SUBMIT ────────────────────────────────────────────────
+function submitBooking() {
+  const ime = document.getElementById('f-ime').value.trim();
+  const tel = document.getElementById('f-tel').value.trim();
+
+  if (!ime || !tel) {
+    showToast('Popunite sva polja ⚠️');
+    return;
+  }
+
+  if (!selectedPutovanje) return;
+
+  const btn = document.getElementById('btn-submit');
+  btn.disabled = true;
+  btn.textContent = 'Šaljem rezervaciju...';
+
+  const cena = Number(selectedPutovanje.cena);
+  const ukupno = cena * brPutnika;
+
+  // Sacuvaj za PDF
+  lastBooking = {
+    ime, tel,
+    putovanje: selectedPutovanje,
+    brPutnika,
+    ukupno,
+    datum: new Date().toLocaleDateString('sr')
+  };
+
+  // Posalji na Sheets
+  const form = document.createElement('form');
+  form.method = 'GET';
+  form.action = API;
+  form.target = 'hidden_iframe';
+  const fields = {
+    action: 'rezervisi',
+    ime, telefon: tel,
+    putovanjeId: selectedPutovanje.id,
+    brPutnika
+  };
+  Object.entries(fields).forEach(([k, v]) => {
+    const inp = document.createElement('input');
+    inp.type = 'hidden'; inp.name = k; inp.value = v;
+    form.appendChild(inp);
+  });
+  document.body.appendChild(form);
+  form.submit();
+  document.body.removeChild(form);
+
+  setTimeout(() => {
+    btn.disabled = false;
+    btn.textContent = '✈️ Potvrdi rezervaciju';
+    document.getElementById('modal-overlay').classList.remove('open');
+
+    // Generisi ref kod lokalno za prikaz
+    const refKod = 'DTT-' + String(Math.floor(Math.random() * 9000) + 1000);
+    lastBooking.refKod = refKod;
+
+    document.getElementById('success-ref').textContent = refKod;
+    document.getElementById('success-info').innerHTML =
+      `<strong>${ime}</strong><br>
+       ${selectedPutovanje.destinacija} · ${formatDate(selectedPutovanje.datum)} u ${selectedPutovanje.vreme}<br>
+       👥 ${brPutnika} putnik/a · 💰 ${ukupno.toLocaleString()} RSD<br><br>
+       📱 Telegram potvrda je poslata agenciji.<br>
+       💳 Plaćanje gotovinom pri ulasku u vozilo.`;
+
+    document.getElementById('success-modal').classList.add('open');
+    loadData();
+  }, 1800);
+}
+
+function closeSuccess() {
+  document.getElementById('success-modal').classList.remove('open');
+  showPage('rezervacije');
+}
+
+// ── PDF ───────────────────────────────────────────────────
+function downloadPDF() {
+  if (!lastBooking) return;
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  const b = lastBooking;
+  const p = b.putovanje;
+
+  // Header
+  doc.setFillColor(15, 40, 71);
+  doc.rect(0, 0, 210, 45, 'F');
+
+  doc.setTextColor(59, 158, 255);
+  doc.setFontSize(22);
+  doc.setFont('helvetica', 'bold');
+  doc.text('Dream Team Travel', 15, 18);
+
+  doc.setTextColor(180, 200, 230);
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'normal');
+  doc.text('Potvrda rezervacije', 15, 28);
+  doc.text('Srbija → Hrvatska · Kombi prevoz', 15, 36);
+
+  // Ref
+  doc.setFillColor(59, 158, 255);
+  doc.rect(140, 8, 55, 28, 'F');
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(10);
+  doc.text('REF. BROJ', 167, 18, { align: 'center' });
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.text(b.refKod, 167, 28, { align: 'center' });
+
+  // Info box
+  doc.setFillColor(244, 248, 255);
+  doc.rect(15, 53, 180, 70, 'F');
+  doc.setDrawColor(221, 232, 245);
+  doc.rect(15, 53, 180, 70);
+
+  doc.setTextColor(100, 116, 139);
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'normal');
+
+  const rows = [
+    ['Putnik', b.ime],
+    ['Telefon', b.tel],
+    ['Destinacija', p.destinacija],
+    ['Polaziste', p.polazak],
+    ['Datum polaska', formatDate(p.datum)],
+    ['Vreme polaska', p.vreme],
+    ['Trajanje putovanja', p.trajanje],
+    ['Broj putnika', b.brPutnika + ' osoba/e'],
+  ];
+
+  rows.forEach(([lbl, val], i) => {
+    const y = 62 + i * 8;
+    doc.setTextColor(100, 116, 139);
+    doc.text(lbl + ':', 22, y);
+    doc.setTextColor(15, 40, 71);
+    doc.setFont('helvetica', 'bold');
+    doc.text(String(val), 80, y);
+    doc.setFont('helvetica', 'normal');
+  });
+
+  // Total
+  doc.setFillColor(15, 40, 71);
+  doc.rect(15, 130, 180, 18, 'F');
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(11);
+  doc.setFont('helvetica', 'normal');
+  doc.text('Ukupno za plaćanje:', 22, 141);
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.text(Number(b.ukupno).toLocaleString() + ' RSD', 188, 141, { align: 'right' });
+
+  // Napomena
+  doc.setFillColor(232, 241, 252);
+  doc.rect(15, 155, 180, 20, 'F');
+  doc.setTextColor(29, 111, 216);
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'normal');
+  doc.text('💳 Plaćanje gotovinom ili karticom pri ulasku u vozilo.', 22, 164);
+  doc.text('📱 Za sve informacije: +381 64 123 4567', 22, 171);
+
+  // Footer
+  doc.setFillColor(15, 40, 71);
+  doc.rect(0, 275, 210, 22, 'F');
+  doc.setTextColor(120, 150, 190);
+  doc.setFontSize(8);
+  doc.text('Dream Team Travel · info@dreamteamtravel.rs · +381 64 123 4567', 105, 284, { align: 'center' });
+  doc.text('Hvala što putujete sa nama! ✈️', 105, 291, { align: 'center' });
+
+  doc.save('Potvrda_' + b.refKod + '.pdf');
+}
+
+// ── NAVIGATION ────────────────────────────────────────────
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.bottom-nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.getElementById('nav-' + name).classList.add('active');
+
+  // Show/hide hero
+  document.getElementById('hero-section').style.display = name === 'putovanja' ? '' : 'none';
+
+  if (name === 'rezervacije') renderRezervacije();
+  loadData();
+}
+
+// ── TOAST ─────────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── HELPERS ───────────────────────────────────────────────
+function formatDate(d) {
+  if (!d) return '';
+  try {
+    const parts = String(d).split('-');
+    if (parts.length === 3) return parts[2] + '.' + parts[1] + '.' + parts[0] + '.';
+    return d;
+  } catch(e) { return d; }
+}
+
+// ── INIT ──────────────────────────────────────────────────
+loadData();
+</script>
+</body>
+</html>
